@@ -1207,11 +1207,12 @@ PyObject *PyCTP_PyDict_FromStruct(CThostFtdcQrySettlementInfoField *pQrySettleme
 PyObject *PyCTP_PyDict_FromStruct(CThostFtdcReqAuthenticateField *pReqAuthenticateField)
 {
 	if(pReqAuthenticateField == nullptr) Py_RETURN_NONE;
-	return Py_BuildValue("{s:y,s:y,s:y,s:y}"
-		, "UserProductInfo", pReqAuthenticateField->UserProductInfo
+	return Py_BuildValue("{s:y,s:y,s:y,s:y,s:y}"
+		, "AppID", pReqAuthenticateField->AppID
 		, "UserID", pReqAuthenticateField->UserID
 		, "BrokerID", pReqAuthenticateField->BrokerID
 		, "AuthCode", pReqAuthenticateField->AuthCode
+		, "UserProductInfo", pReqAuthenticateField->UserProductInfo
 		);
 }
 PyObject *PyCTP_PyDict_FromStruct(CThostFtdcNotifyFutureSignOutField *pNotifyFutureSignOutField)
@@ -6768,21 +6769,24 @@ int PyCTP_Struct_FromPyDict(CThostFtdcCurrTransferIdentityField *pCurrTransferId
 
 int PyCTP_Struct_FromPyDict(CThostFtdcReqAuthenticateField *pReqAuthenticateField, PyObject *dict)
 {
-	static const char *kwlist[] = {"BrokerID", "AuthCode", "UserID", "UserProductInfo", nullptr};
+	static const char *kwlist[] = {"BrokerID", "AuthCode", "UserID", "UserProductInfo", "AppID", nullptr};
 	char *pReqAuthenticateField_BrokerID = nullptr;
 	char *pReqAuthenticateField_AuthCode = nullptr;
 	char *pReqAuthenticateField_UserID = nullptr;
 	char *pReqAuthenticateField_UserProductInfo = nullptr;
-	PyCTP_PyDict_FromStruct_BEGIN(pReqAuthenticateField, "|yyyy")
+	char *pReqAuthenticateField_AppID = nullptr;
+	PyCTP_PyDict_FromStruct_BEGIN(pReqAuthenticateField, "|yyyyy")
 		, &pReqAuthenticateField_BrokerID
 		, &pReqAuthenticateField_AuthCode
 		, &pReqAuthenticateField_UserID
 		, &pReqAuthenticateField_UserProductInfo
+		, &pReqAuthenticateField_AppID
 		PyCTP_PyDict_FromStruct_END
 		if(pReqAuthenticateField_BrokerID != nullptr){ strcpy_s(pReqAuthenticateField->BrokerID, pReqAuthenticateField_BrokerID); pReqAuthenticateField_BrokerID = nullptr; }
 		if(pReqAuthenticateField_AuthCode != nullptr){ strcpy_s(pReqAuthenticateField->AuthCode, pReqAuthenticateField_AuthCode); pReqAuthenticateField_AuthCode = nullptr; }
 		if(pReqAuthenticateField_UserID != nullptr){ strcpy_s(pReqAuthenticateField->UserID, pReqAuthenticateField_UserID); pReqAuthenticateField_UserID = nullptr; }
 		if(pReqAuthenticateField_UserProductInfo != nullptr){ strcpy_s(pReqAuthenticateField->UserProductInfo, pReqAuthenticateField_UserProductInfo); pReqAuthenticateField_UserProductInfo = nullptr; }
+		if(pReqAuthenticateField_AppID != nullptr){ strcpy_s(pReqAuthenticateField->AppID, pReqAuthenticateField_AppID); pReqAuthenticateField_AppID = nullptr; }
 		PyCTP_PyDict_FromStruct_RETURN
 }
 
