@@ -19,36 +19,31 @@ optional = {}
 if platform.system() == 'Linux':
     optional['extra_compile_args'] = ['-std=c++11']
     optional['runtime_library_dirs'] = ['./']
-    optional['include_dirs']=['./v6.3.11_20180109_api_tradeapi_linux64']
-    optional['library_dirs']=['./v6.3.11_20180109_api_tradeapi_linux64']
-#    depend_dynamics = ['libthostmduserapi.so', 'libthosttraderapi.so']
+    optional['include_dirs']=['./v6.3.15_20190220_api_tradeapi_se_linux64']
+    optional['library_dirs']=['./v6.3.15_20190220_api_tradeapi_se_linux64']
 if platform.system() == 'Windows':
-    optional['include_dirs'] = ['./v6.3.11_20180109_tradeapi_windows']
-    optional['library_dirs'] = ['./v6.3.11_20180109_tradeapi_windows']
     if '64 bit' in platform.python_compiler():
-        optional['include_dirs'] = ['./20181119_tradeapi64_se_windows']
-        optional['library_dirs'] = ['./20181119_tradeapi64_se_windows']
-#    depend_dynamics = ['thostmduserapi.dll', 'thosttraderapi.dll']
+        optional['include_dirs'] = ['./v6.3.15_20190220_tradeapi64_se_windows']
+        optional['library_dirs'] = ['./v6.3.15_20190220_tradeapi64_se_windows']
+    else:
+        optional['include_dirs'] = ['./v6.3.15_20190220_tradeapi_se_windows']
+        optional['library_dirs'] = ['./v6.3.15_20190220_tradeapi_se_windows']
 argments = dict(name='PyCTP',
                 sources=sources,
                 language='c++',
-                libraries=['thostmduserapi', 'thosttraderapi'],
+                libraries=['thostmduserapi_se', 'thosttraderapi_se'],
                 depends=depends)
 argments.update(optional)
 
 setup(name='PyCTP',
       version='1.0.1',
       description='CTP for Python',
-      long_description='CTP v6.3.6_20160606 for Python',
+      long_description='CTP v6.3.15_20190220 for Python',
       author='Shi Zhuolin',
       author_email='shizhuolin@hotmail.com',
       url='http://www.pyctp.org/',
       keywords=['ctp','futures','stock'],
       license='LGPL-3.0',
       platforms=['linux-x86_64','win32','win-amd64'],
-      ext_modules=[Extension(**argments)],
-#      #data_files=[('lib64', depend_dynamics)],
-#      #packages=['PyCTP'],
-#      #package_dir={'PyCTP':optional['library_dirs'][0]},
-#      #package_data={'PyCTP':depend_dynamics}
+      ext_modules=[Extension(**argments)]
       )
